@@ -24,3 +24,50 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* src/app/globals.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fix horizontal drag/scroll issues */
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Prevent horizontal scroll on all elements */
+* {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+/* Fix for mobile devices */
+body {
+  overflow-x: hidden !important;
+  position: relative;
+}
+
+/* Prevent overscroll behavior */
+html {
+  overscroll-behavior: none;
+}
+/* src/app/globals.css */
+
+/* Apply rounded corners to all logo instances */
+img[src="/logo.png"],
+img[alt*="Skai Initiative"] {
+  border-radius: 50% !important;
+  -webkit-border-radius: 50% !important;
+}
+
+/* For favicon specifically */
+link[rel="icon"][href="/logo.png"],
+link[rel="shortcut icon"][href="/favicon.png"] {
+  /* Note: Favicons don't support CSS styling directly */
+  /* You'll need to process the image manually */
+}
