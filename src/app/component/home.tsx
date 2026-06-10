@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useEffect } from 'react';
@@ -5,18 +6,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   User, TrendingUp, FileText, Users, 
   ShieldCheck, Globe, LayoutList, Banknote, 
-  Zap, Briefcase, Check, Menu, X, ArrowRight
+  Zap, Briefcase, Check, Menu, X, ArrowRight, Mail
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-
-// Your Google Form URL
-const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSebabcGZh0I7qvfNLcoWUTtk1jLeKfX2hbAHszQSOoHL5PXtw/viewform?usp=publish-editor";
-
-// Helper function to open Google Form
-const openAssessmentForm = () => {
-  window.open(GOOGLE_FORM_URL, '_blank');
-};
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,10 +34,7 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="flex justify-between items-center h-16 sm:h-20">
-          <motion.div 
-            whileHover={{ scale: 1.02 }}
-            className="flex-shrink-0 flex items-center cursor-pointer group"
-          >
+          <Link href="/" className="flex-shrink-0 flex items-center cursor-pointer group">
             <div className="relative w-8 h-8 sm:w-10 sm:h-10 mr-2 sm:mr-3">
               <Image 
                 src="/logo.png" 
@@ -58,14 +48,14 @@ const Navbar = () => {
             <span className="text-xl sm:text-2xl font-extrabold tracking-tight text-gray-900 transition-colors group-hover:text-black">
               Skai <span className="text-gray-500 font-medium">Initiative</span>
             </span>
-          </motion.div>
+          </Link>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-6 lg:space-x-8 items-center">
-            {['About', 'Assessment'].map((item) => (
+            {['About', 'Assessment', 'Contact'].map((item) => (
               <motion.a 
                 key={item} 
-                href={`#${item.toLowerCase()}`}
+                href={item === 'Assessment' ? '/assessment' : `#${item.toLowerCase()}`}
                 whileHover={{ scale: 1.05 }}
                 className="text-gray-600 hover:text-black font-medium transition-all duration-200 relative group px-2 py-1"
               >
@@ -73,14 +63,15 @@ const Navbar = () => {
                 <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
               </motion.a>
             ))}
-            <motion.button 
-              onClick={openAssessmentForm}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-black text-white px-5 py-2 lg:px-6 lg:py-2.5 rounded-full font-medium hover:bg-gray-800 transition-all duration-300 shadow-lg shadow-gray-300/30"
-            >
-              Start Assessment
-            </motion.button>
+            <Link href="/assessment">
+              <motion.button 
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-black text-white px-5 py-2 lg:px-6 lg:py-2.5 rounded-full font-medium hover:bg-gray-800 transition-all duration-300 shadow-lg shadow-gray-300/30"
+              >
+                Start Assessment
+              </motion.button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -110,20 +101,21 @@ const Navbar = () => {
               {['About', 'Assessment', 'Pricing', 'Contact'].map((item) => (
                 <motion.a 
                   key={item} 
-                  href={`#${item.toLowerCase()}`}
+                  href={item === 'Assessment' ? '/assessment' : `#${item.toLowerCase()}`}
                   whileHover={{ x: 5 }}
                   className="block px-4 py-3 rounded-xl text-gray-700 hover:bg-gray-50 text-base font-medium transition-colors"
                 >
                   {item}
                 </motion.a>
               ))}
-              <motion.button 
-                onClick={openAssessmentForm}
-                whileTap={{ scale: 0.95 }}
-                className="w-full mt-3 bg-black text-white px-6 py-3 rounded-xl font-medium hover:bg-gray-800 transition-colors"
-              >
-                Start Assessment
-              </motion.button>
+              <Link href="/assessment">
+                <motion.button 
+                  whileTap={{ scale: 0.95 }}
+                  className="w-full mt-3 bg-black text-white px-6 py-3 rounded-xl font-medium hover:bg-gray-800 transition-colors"
+                >
+                  Start Assessment
+                </motion.button>
+              </Link>
             </div>
           </motion.div>
         )}
@@ -166,15 +158,16 @@ const Hero = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="flex flex-wrap gap-3 sm:gap-4"
           >
-            <motion.button 
-              onClick={openAssessmentForm}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-black text-white px-6 sm:px-8 py-3 sm:py-3.5 rounded-2xl font-semibold hover:bg-gray-800 transition-all duration-300 shadow-xl shadow-black/10 flex items-center gap-2"
-            >
-              Start Assessment
-              <ArrowRight size={18} className="sm:hidden" />
-            </motion.button>
+            <Link href="/assessment">
+              <motion.button 
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-black text-white px-6 sm:px-8 py-3 sm:py-3.5 rounded-2xl font-semibold hover:bg-gray-800 transition-all duration-300 shadow-xl shadow-black/10 flex items-center gap-2"
+              >
+                Start Assessment
+                <ArrowRight size={18} className="sm:hidden" />
+              </motion.button>
+            </Link>
             <motion.button 
               onClick={() => {
                 const section = document.getElementById('about');
@@ -424,14 +417,15 @@ const CTA = () => {
           Your Trading Performance Could Be <br />
           Your Greatest Asset.
         </motion.h2>
-        <motion.button 
-          onClick={openAssessmentForm}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="bg-white text-black px-8 sm:px-12 py-3 sm:py-4 rounded-full font-bold text-base sm:text-lg hover:bg-gray-200 transition-all duration-300 shadow-2xl shadow-white/10"
-        >
-          Begin Assessment
-        </motion.button>
+        <Link href="/assessment">
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-white text-black px-8 sm:px-12 py-3 sm:py-4 rounded-full font-bold text-base sm:text-lg hover:bg-gray-200 transition-all duration-300 shadow-2xl shadow-white/10"
+          >
+            Begin Assessment
+          </motion.button>
+        </Link>
       </motion.div>
     </section>
   );
@@ -462,23 +456,32 @@ const Footer = () => {
           <h4 className="font-bold text-gray-900 mb-3 sm:mb-4">Company</h4>
           <ul className="space-y-2 text-sm text-gray-500">
             <li><a href="#about" className="hover:text-black transition-colors">About</a></li>
-            <li><a href="#assessment" className="hover:text-black transition-colors">Assessment</a></li>
+            <li><Link href="/assessment" className="hover:text-black transition-colors">Assessment</Link></li>
             <li><a href="#pricing" className="hover:text-black transition-colors">Pricing</a></li>
           </ul>
         </div>
         <div>
           <h4 className="font-bold text-gray-900 mb-3 sm:mb-4">Support</h4>
           <ul className="space-y-2 text-sm text-gray-500">
+            <li>
+              <a href="mailto:admin00@skainitiative.com" className="hover:text-black transition-colors flex items-center gap-2">
+                <Mail size={16} />
+                admin00@skainitiative.com
+              </a>
+            </li>
+            <li>
+              <a href="mailto:skainitiative@gmail.com" className="hover:text-black transition-colors flex items-center gap-2">
+                <Mail size={16} />
+                skainitiative@gmail.com
+              </a>
+            </li>
             <li><a href="#contact" className="hover:text-black transition-colors">Contact</a></li>
-            <li><a href="#" className="hover:text-black transition-colors">Terms</a></li>
-            <li><a href="#" className="hover:text-black transition-colors">Privacy Policy</a></li>
           </ul>
         </div>
       </div>
     </footer>
   );
 };
-
 
 export default function HomeClient() {
   return (
